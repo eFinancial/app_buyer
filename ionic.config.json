@@ -1,0 +1,7 @@
+{
+  "name": "efi-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
