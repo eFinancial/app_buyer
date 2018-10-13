@@ -35,7 +35,7 @@ export class HomePage {
         invoiceData: JSON.parse(qrData.text),
         verified: false
       };
-      this.invoiceHistory.push(newInvoice);
+      this.invoiceHistory.unshift(newInvoice);
       if (this.invoiceHistory.length > 7) {
         this.invoiceHistory.pop();
       }
