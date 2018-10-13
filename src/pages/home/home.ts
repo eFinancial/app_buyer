@@ -25,10 +25,10 @@ export class HomePage {
   }
 
   scanQrCode(){
-    this.http.post(this.efiURL, this.getMockInvoice())
+    /* this.http.post(this.efiURL, this.getMockInvoice())
       .subscribe(() => console.log("test")
-      , (error) => console.error(error));
-    /* this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
+      , (error) => console.error(error)); */
+    this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
       if(invoiceHistory) {
         this.invoiceHistory = invoiceHistory;
       }
@@ -55,7 +55,7 @@ export class HomePage {
         });
     }).catch(err => {
       console.log('Error', err);
-    }); */
+    });
   }
 
   getDate(invoice: InvoiceData) {
