@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavController, ToastController} from 'ionic-angular';
 import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
 import {InvoiceData} from "../../model/store-data.model";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 
 @Component({
   selector: 'page-home',
@@ -50,56 +51,16 @@ export class HomePage {
   }; */
 
   constructor(public navCtrl: NavController,
-              private qrScanner: QRScanner,
-              private toastCtrl: ToastController){
+              private barcodeScanner: BarcodeScanner){
   }
 
-  ionViewDidEnter() {
-  }
-
-  ionViewWillLeave(){
-    //window.document.querySelector('ion-app').classList.remove('cameraView');
-  }
-
-    scanQrCode(){
-      this.qrScanner.prepare()
-        .then((status: QRScannerStatus) => {
-          if (status.authorized) {
-            // camera permission was granted
-
-            // start scanning
-
-            this.qrScanner.show();
-            //window.document.querySelector('ion-app').classList.add('cameraView');
-
-            let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-              this.invoiceData = JSON.parse(text);
-              console.log(this.invoiceData);
-              this.qrScanner.hide(); // hide camera preview
-              //window.document.querySelector('ion-app').classList.remove('cameraView');
-              scanSub.unsubscribe(); // stop scanning
-            });
-
-
-          } else if (status.denied) {
-            const toast = this.toastCtrl.create({
-              message: 'camera permission was denied',
-              duration: 3000
-            });
-            toast.present();
-            // camera permission was permanently denied
-            // you must use QRScanner.openSettings() method to guide the user to the settings page
-            // then they can grant the permission from there
-          } else {
-            const toast = this.toastCtrl.create({
-              message: 'You can ask for permission again at a later time.',
-              duration: 3000
-            });
-            toast.present();
-            // permission was denied, but not permanently. You can ask for permission again at a later time.
-          }
-        })
-        .catch((e: any) => console.log('Error is', e));
+  scanQrCode(){
+    this.barcodeScanner.scan().then(qrData => {
+      console.log('Barcode data', qrData);
+      this.invoiceData = JSON.parse(qrData.text);
+    }).catch(err => {
+      console.log('Error', err);
+    });
   }
 
   getDate() {

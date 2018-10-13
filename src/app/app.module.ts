@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import {QRScanner} from "@ionic-native/qr-scanner";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import {QRScanner} from "@ionic-native/qr-scanner";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    QRScanner
+    BarcodeScanner
   ]
 })
 export class AppModule {}
