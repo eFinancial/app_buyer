@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, ToastController} from 'ionic-angular';
-import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
+import {NavController} from 'ionic-angular';
 import {InvoiceData} from "../../model/store-data.model";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 
