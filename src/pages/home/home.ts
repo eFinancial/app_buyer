@@ -23,7 +23,9 @@ export class HomePage {
 
   scanQrCode(){
     this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
-      this.invoiceHistory = invoiceHistory;
+      if(invoiceHistory) {
+        this.invoiceHistory = invoiceHistory;
+      }
       return this.barcodeScanner.scan({
         resultDisplayDuration: 0,
         prompt: ''
