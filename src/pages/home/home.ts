@@ -3,6 +3,7 @@ import {NavController, ToastController} from 'ionic-angular';
 import {InvoiceData, LocalInvoiceData} from "../../model/store-data.model";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import { Storage } from '@ionic/storage';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'page-home',
@@ -11,13 +12,14 @@ import { Storage } from '@ionic/storage';
 export class HomePage {
 
   invoiceHistory: LocalInvoiceData[] = [];
-
+  private efiURL = "https://efi-fallback.herokuapp.com/tam/efi/save"
   /* {"hash":"afee217000","invoice":{"date":"2018-10-13T14:01:48.754Z","billNo":1,"totalCostBrutto":26,"totalCostNetto":21.06,"customerPaid":30,"tax":10,"seller":{"name":"döner","ustIdNr":"DE1010101100","address":{"street":"Ortenauerstarße 14","zip":"77653","city":"Offenburg"},"storeID":"1AHH","checkoutLane":3},"products":[{"name":"Avocado","count":5,"itemPrice":5},{"name":"Erdnuss","count":20,"itemPrice":0.05},{"name":"Radio","count":1,"itemPrice":20}]}}*/
 
   constructor(public navCtrl: NavController,
               private barcodeScanner: BarcodeScanner,
               private storage: Storage,
-              private toastCtrl: ToastController){
+              private toastCtrl: ToastController,
+              private http: HttpClient){
     this.scanQrCode();
   }
 
@@ -31,15 +33,22 @@ export class HomePage {
         prompt: ''
       })
     }).then(qrData => {
-      const newInvoice: LocalInvoiceData = {
+      let newInvoice: LocalInvoiceData = {
         invoiceData: JSON.parse(qrData.text),
         verified: false
       };
+      const copyOfExistingInvoices = this.invoiceHistory;
       this.invoiceHistory.unshift(newInvoice);
-      if (this.invoiceHistory.length > 7) {
-        this.invoiceHistory.pop();
-      }
-      this.saveNewHistory();
+      this.http.post(this.efiURL, JSON.parse(qrData.text))
+        .subscribe(() => {
+          this.invoiceHistory = copyOfExistingInvoices;
+          newInvoice.verified = true;
+          this.invoiceHistory.unshift(newInvoice);
+          if (this.invoiceHistory.length > 7) {
+            this.invoiceHistory.pop();
+          }
+          this.saveNewHistory();
+        });
     }).catch(err => {
       console.log('Error', err);
     });
