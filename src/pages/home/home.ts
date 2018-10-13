@@ -26,9 +26,6 @@ export class HomePage {
   }
 
   scanQrCode(){
-    /* this.http.post(this.efiURL, this.getMockInvoice())
-      .subscribe(() => console.log("test")
-      , (error) => console.error(error)); */
     this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
       if(invoiceHistory) {
         this.invoiceHistory = invoiceHistory;
@@ -38,27 +35,23 @@ export class HomePage {
         prompt: ''
       })
     }).then(qrData => {
+      const invoice: InvoiceData = JSON.parse(qrData.text);
       let newInvoice: LocalInvoiceData = {
-        invoiceData: JSON.parse(qrData.text),
+        invoiceData: invoice,
         verified: false
       };
       this.invoiceHistory.unshift(newInvoice);
       this.http.post(this.efiURL, JSON.parse(qrData.text))
         .subscribe(() => {
-          this.http.get(this.efiGETURL)
-            .subscribe((savedInvoices: InvoiceData[]) => {
-              this.invoiceHistory = [];
-              savedInvoices.forEach((invoice: InvoiceData) => {
-                this.invoiceHistory.push({
-                  invoiceData: invoice,
-                  verified: true
-                })
-              });
-              if (this.invoiceHistory.length > 7) {
-                this.invoiceHistory.pop();
-                this.saveNewHistory();
-              }
-            })
+          setTimeout( () => {
+            this.invoiceHistory.pop();
+            newInvoice.verified = true;
+            this.invoiceHistory.unshift(newInvoice);
+            if (this.invoiceHistory.length > 7) {
+              this.invoiceHistory.pop();
+            }
+            this.saveNewHistory();
+          }, 1000);
         });
     }).catch(err => {
       console.log('Error', err);
