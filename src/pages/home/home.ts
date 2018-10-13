@@ -54,8 +54,10 @@ export class HomePage {
   }
 
   scanQrCode(){
-    this.barcodeScanner.scan().then(qrData => {
-      console.log('Barcode data', qrData);
+    this.barcodeScanner.scan({
+      resultDisplayDuration: 0,
+      prompt: ''
+    }).then(qrData => {
       this.invoiceData = JSON.parse(qrData.text);
     }).catch(err => {
       console.log('Error', err);
@@ -83,7 +85,6 @@ export class HomePage {
   }
 
   rescanQR() {
-    console.log(JSON.stringify(this.invoiceData))
     this.scanQrCode();
   }
 }
