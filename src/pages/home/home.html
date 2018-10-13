@@ -1,23 +1,29 @@
 <ion-content padding>
 
-  <div class="invoice" *ngIf="invoiceData">
+  <div class="invoice" *ngFor="let invoiceData of invoiceHistory">
+    <div (click)="displayVerifiedToast()" class="accepted" *ngIf="invoiceData.verified">
+      <ion-icon name="checkmark"></ion-icon>
+    </div>
+    <div (click)="displayNotVerifiedToast()" class="declined" *ngIf="!invoiceData.verified">
+      <ion-icon name="close-circle"></ion-icon>
+    </div>
     <div class="invoice-header">
       <div class="title">
         <span>* * * *</span>
-        {{invoiceData.invoice.seller.name}}
+        {{invoiceData.invoiceData.invoice.seller.name}}
         <span>* * * *</span>
       </div>
       <div class="address">
-        <span>{{invoiceData.invoice.seller.address.street}}</span><br>
-        <span>{{invoiceData.invoice.seller.address.zip}}</span>
-        <span>{{invoiceData.invoice.seller.address.city}}</span>
+        <span>{{invoiceData.invoiceData.invoice.seller.address.street}}</span><br>
+        <span>{{invoiceData.invoiceData.invoice.seller.address.zip}}</span>
+        <span>{{invoiceData.invoiceData.invoice.seller.address.city}}</span>
       </div>
       <div class="taxID">
-        UST-ID_NR: <span>{{invoiceData.invoice.seller.ustIdNr}}</span>
+        UST-ID_NR: <span>{{invoiceData.invoiceData.invoice.seller.ustIdNr}}</span>
       </div>
     </div>
     <div class="products">
-      <div *ngFor="let product of invoiceData.invoice.products">
+      <div *ngFor="let product of invoiceData.invoiceData.invoice.products">
         <div class="singleProduct">
           <div class="itemData">
             <div class="name">
@@ -39,7 +45,7 @@
         SUMME
       </div>
       <div class="total-price">
-        <span>EUR</span>{{invoiceData.invoice.totalCostBrutto.toFixed(2)}}
+        <span>EUR</span>{{invoiceData.invoiceData.invoice.totalCostBrutto.toFixed(2)}}
       </div>
     </div>
     <hr class="summary-separator">
@@ -48,7 +54,7 @@
         Geg.
       </div>
       <div class="money-given">
-        <span>EUR</span>{{invoiceData.invoice.customerPaid.toFixed(2)}}
+        <span>EUR</span>{{invoiceData.invoiceData.invoice.customerPaid.toFixed(2)}}
       </div>
     </div>
     <div class="customer-cashback">
@@ -56,7 +62,7 @@
         Rückgeld
       </div>
       <div class="money-back">
-        <span>EUR</span>{{(invoiceData.invoice.customerPaid - invoiceData.invoice.totalCostBrutto).toFixed(2)}}
+        <span>EUR</span>{{(invoiceData.invoiceData.invoice.customerPaid - invoiceData.invoiceData.invoice.totalCostBrutto).toFixed(2)}}
       </div>
     </div>
     <div class="flexColumns">
@@ -77,10 +83,10 @@
           Netto
         </div>
         <div>
-          {{invoiceData.invoice.totalCostNetto.toFixed(2)}}
+          {{invoiceData.invoiceData.invoice.totalCostNetto.toFixed(2)}}
         </div>
         <div>
-          {{invoiceData.invoice.totalCostNetto.toFixed(2)}}
+          {{invoiceData.invoiceData.invoice.totalCostNetto.toFixed(2)}}
         </div>
       </div>
 
@@ -89,10 +95,10 @@
           Steuer
         </div>
         <div>
-          {{(invoiceData.invoice.totalCostBrutto * 0.19).toFixed(2)}}
+          {{(invoiceData.invoiceData.invoice.totalCostBrutto * 0.19).toFixed(2)}}
         </div>
         <div>
-          {{(invoiceData.invoice.totalCostBrutto * 0.19).toFixed(2)}}
+          {{(invoiceData.invoiceData.invoice.totalCostBrutto * 0.19).toFixed(2)}}
         </div>
       </div>
 
@@ -101,35 +107,35 @@
           Brutto
         </div>
         <div>
-          {{(invoiceData.invoice.totalCostBrutto).toFixed(2)}}
+          {{(invoiceData.invoiceData.invoice.totalCostBrutto).toFixed(2)}}
         </div>
         <div>
-          {{(invoiceData.invoice.totalCostBrutto).toFixed(2)}}
+          {{(invoiceData.invoiceData.invoice.totalCostBrutto).toFixed(2)}}
         </div>
       </div>
     </div>
     <div class="flexColumns">
       <div class="date-info">
         <div>
-          {{getDate()}}
+          {{getDate(invoiceData.invoiceData)}}
         </div>
         <div>
-          Markt: {{invoiceData.invoice.seller.storeID}}
+          Markt: {{invoiceData.invoiceData.invoice.seller.storeID}}
         </div>
       </div>
 
       <div class="time-info">
         <div>
-          {{getTime()}}
+          {{getTime(invoiceData.invoiceData)}}
         </div>
         <div>
-          Kasse {{invoiceData.invoice.seller.checkoutLane}}
+          Kasse {{invoiceData.invoiceData.invoice.seller.checkoutLane}}
         </div>
       </div>
 
       <div class="invoice-info">
         <div>
-          Bon-Nr. {{invoiceData.invoice.billNo}}
+          Bon-Nr. {{invoiceData.invoiceData.invoice.billNo}}
         </div>
         <div>
           Bed. AKWEI22
@@ -147,8 +153,11 @@
         * * * *
       </div>
     </div>
+    <div class="hash">
+      {{invoiceData.invoiceData.hash}}
+    </div>
   </div>
-  <div class="logo" *ngIf="!invoiceData">
+  <div class="logo" *ngIf="!invoiceHistory?.length">
     e<span>Fi</span>
   </div>
   <ion-fab left bottom>

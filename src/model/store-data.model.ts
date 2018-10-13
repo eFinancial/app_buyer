@@ -14,6 +14,11 @@ export interface Invoice {
   tax: number;
 }
 
+export interface LocalInvoiceData {
+  invoiceData: InvoiceData;
+  verified: boolean;
+}
+
 export interface Seller {
   name: string;
   address: Address;

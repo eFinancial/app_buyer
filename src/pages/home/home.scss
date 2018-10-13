@@ -22,7 +22,6 @@ page-home {
     }
   }
   .content {
-    //background-color: rgba($color-green-light, 1);
     background-image: linear-gradient($color-green-light, $color-green-dark);
   }
   .notice {
@@ -36,6 +35,54 @@ page-home {
     height: auto;
     width: 100%;
     background-color: white;
+    margin-bottom: 25px;
+    position: relative;
+
+    .accepted{
+      ion-icon {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        border: 2px solid $color-green-light;
+        color: $color-green-light;
+        font-size: 25px;
+        text-align: center;
+        margin: auto;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+
+    .button {
+      background: transparent;
+      box-shadow: none;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      .button-inner {
+        text-align: center;
+        padding: 5px;
+      }
+    }
+    .declined{
+      ion-icon {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        border: 2px solid red;
+        color: red;
+        font-size: 25px;
+        text-align: center;
+        margin: auto;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+      }
+    }
 
     .title {
       text-align: center;
@@ -145,7 +192,14 @@ page-home {
 
     .footer {
       text-align: center;
-      margin-bottom: 20px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+    .hash {
+      text-align: center;
+      margin-bottom: 5px;
+      font-style: italic;
+      font-size: 12px;
     }
   }
 
