@@ -12,8 +12,9 @@ import {HttpClient} from '@angular/common/http';
 export class HomePage {
 
   invoiceHistory: LocalInvoiceData[] = [];
+  //private efiURL = "http://localhost:8080/tam/efi/save"
   private efiURL = "https://efi-fallback.herokuapp.com/tam/efi/save"
-  /* {"hash":"afee217000","invoice":{"date":"2018-10-13T14:01:48.754Z","billNo":1,"totalCostBrutto":26,"totalCostNetto":21.06,"customerPaid":30,"tax":10,"seller":{"name":"döner","ustIdNr":"DE1010101100","address":{"street":"Ortenauerstarße 14","zip":"77653","city":"Offenburg"},"storeID":"1AHH","checkoutLane":3},"products":[{"name":"Avocado","count":5,"itemPrice":5},{"name":"Erdnuss","count":20,"itemPrice":0.05},{"name":"Radio","count":1,"itemPrice":20}]}}*/
+  json = '{"hash":"afee217000","invoice":{"date":"2018-10-13T14:01:48.754Z","billNo":1,"totalCostBrutto":26,"totalCostNetto":21.06,"customerPaid":30,"tax":10,"seller":{"name":"döner","ustIdNr":"DE1010101100","address":{"street":"Ortenauerstarße 14","zip":"77653","city":"Offenburg"},"storeID":"1AHH","checkoutLane":3},"products":[{"name":"Avocado","count":5,"itemPrice":5},{"name":"Erdnuss","count":20,"itemPrice":0.05},{"name":"Radio","count":1,"itemPrice":20}]}}';
 
   constructor(public navCtrl: NavController,
               private barcodeScanner: BarcodeScanner,
@@ -24,7 +25,10 @@ export class HomePage {
   }
 
   scanQrCode(){
-    this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
+    this.http.post(this.efiURL, this.getMockInvoice())
+      .subscribe(() => console.log("test")
+      , (error) => console.error(error));
+    /* this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
       if(invoiceHistory) {
         this.invoiceHistory = invoiceHistory;
       }
@@ -51,7 +55,7 @@ export class HomePage {
         });
     }).catch(err => {
       console.log('Error', err);
-    });
+    }); */
   }
 
   getDate(invoice: InvoiceData) {
