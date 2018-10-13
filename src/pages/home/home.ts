@@ -9,7 +9,7 @@ import {InvoiceData} from "../../model/store-data.model";
 })
 export class HomePage {
 
-  invoiceData: InvoiceData = {
+  invoiceData: InvoiceData; /* = {
     hash: "afee217000",
     invoice: {
       date: new Date().toISOString(),
@@ -47,7 +47,7 @@ export class HomePage {
         }
       ]
     }
-  };
+  }; */
 
   constructor(public navCtrl: NavController,
               private qrScanner: QRScanner,
@@ -55,11 +55,10 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.scanQrCode();
   }
 
   ionViewWillLeave(){
-    window.document.querySelector('ion-app').classList.remove('cameraView');
+    //window.document.querySelector('ion-app').classList.remove('cameraView');
   }
 
     scanQrCode(){
@@ -71,13 +70,13 @@ export class HomePage {
             // start scanning
 
             this.qrScanner.show();
-            window.document.querySelector('ion-app').classList.add('cameraView');
+            //window.document.querySelector('ion-app').classList.add('cameraView');
 
             let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-
-              this.qrScanner.hide(); // hide camera preview
-              window.document.querySelector('ion-app').classList.remove('cameraView');
               this.invoiceData = JSON.parse(text);
+              console.log(this.invoiceData);
+              this.qrScanner.hide(); // hide camera preview
+              //window.document.querySelector('ion-app').classList.remove('cameraView');
               scanSub.unsubscribe(); // stop scanning
             });
 
