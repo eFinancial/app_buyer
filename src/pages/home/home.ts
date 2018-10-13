@@ -30,6 +30,9 @@ export class HomePage {
           verified: false
         };
         this.invoiceHistory.push(newInvoice);
+        if (this.invoiceHistory.length > 7) {
+          this.invoiceHistory.pop();
+        }
       }
       this.saveNewHistory();
     })

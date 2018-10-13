@@ -29,13 +29,18 @@ page-home {
     margin-bottom: 10px;
     font-weight: bold;
   }
+
+  .swiper-pagination-bullet-active {
+    background-color: $color-yellow;
+  }
   .invoice {
     border: 1px dashed gray;
     padding: 5px 20px;
     height: auto;
     width: 100%;
     background-color: white;
-    margin-bottom: 25px;
+    margin-bottom: 55px;
+    margin-right: 5px;
     position: relative;
 
     .accepted{
