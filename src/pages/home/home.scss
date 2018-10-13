@@ -1,4 +1,13 @@
 page-home {
+
+  $color-green-light: #5FAD56;
+  $color-green-dark: #4D9078;
+  $color-yellow: #F2C14F;
+  $color-orange: #F78154;
+  .content {
+    background-color: rgba($color-green-light, 1);
+    //background-image: linear-gradient($color-green-dark, $color-green-light);
+  }
   .notice {
     text-align: center;
     margin-bottom: 10px;
@@ -9,7 +18,7 @@ page-home {
     padding: 5px 20px;
     height: auto;
     width: 100%;
-
+    background-color: white;
 
     .title {
       text-align: center;
@@ -121,5 +130,10 @@ page-home {
       text-align: center;
       margin-bottom: 20px;
     }
+  }
+
+  .fab-md {
+    color: $color-green-light;
+    background-color: $color-yellow;
   }
 }

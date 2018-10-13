@@ -1,7 +1,5 @@
 <ion-content padding>
-  <div class="notice">
-    Rechnung
-  </div>
+
   <div class="invoice">
     <div class="invoice-header">
       <div class="title">
@@ -150,4 +148,10 @@
       </div>
     </div>
   </div>
+  <ion-fab left bottom>
+    <button ion-fab (click)="rescanQR()"><ion-icon name="camera"></ion-icon></button>
+  </ion-fab>
+  <ion-fab right bottom>
+    <button ion-fab><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab>
 </ion-content>

@@ -92,4 +92,8 @@ export class HomePage {
     return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
   }
 
+  rescanQR() {
+    console.log(JSON.stringify(this.invoiceData));
+    //this.scanQrCode();
+  }
 }
