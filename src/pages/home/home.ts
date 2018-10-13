@@ -14,6 +14,7 @@ export class HomePage {
   invoiceHistory: LocalInvoiceData[] = [];
   //private efiURL = "http://localhost:8080/tam/efi/save"
   private efiURL = "https://efi-fallback.herokuapp.com/tam/efi/save"
+  private efiGETURL = "https://efi-fallback.herokuapp.com/tam/efi/load"
   json = '{"hash":"afee217000","invoice":{"date":"2018-10-13T14:01:48.754Z","billNo":1,"totalCostBrutto":26,"totalCostNetto":21.06,"customerPaid":30,"tax":10,"seller":{"name":"döner","ustIdNr":"DE1010101100","address":{"street":"Ortenauerstarße 14","zip":"77653","city":"Offenburg"},"storeID":"1AHH","checkoutLane":3},"products":[{"name":"Avocado","count":5,"itemPrice":5},{"name":"Erdnuss","count":20,"itemPrice":0.05},{"name":"Radio","count":1,"itemPrice":20}]}}';
 
   constructor(public navCtrl: NavController,
@@ -41,17 +42,23 @@ export class HomePage {
         invoiceData: JSON.parse(qrData.text),
         verified: false
       };
-      const copyOfExistingInvoices = this.invoiceHistory;
       this.invoiceHistory.unshift(newInvoice);
       this.http.post(this.efiURL, JSON.parse(qrData.text))
         .subscribe(() => {
-          this.invoiceHistory = copyOfExistingInvoices;
-          newInvoice.verified = true;
-          this.invoiceHistory.unshift(newInvoice);
-          if (this.invoiceHistory.length > 7) {
-            this.invoiceHistory.pop();
-          }
-          this.saveNewHistory();
+          this.http.get(this.efiGETURL)
+            .subscribe((savedInvoices: InvoiceData[]) => {
+              this.invoiceHistory = [];
+              savedInvoices.forEach((invoice: InvoiceData) => {
+                this.invoiceHistory.push({
+                  invoiceData: invoice,
+                  verified: true
+                })
+              });
+              if (this.invoiceHistory.length > 7) {
+                this.invoiceHistory.pop();
+                this.saveNewHistory();
+              }
+            })
         });
     }).catch(err => {
       console.log('Error', err);
