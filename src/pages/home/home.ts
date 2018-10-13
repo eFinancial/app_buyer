@@ -23,36 +23,24 @@ export class HomePage {
 
   scanQrCode(){
     this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
-      if(invoiceHistory) {
-        this.invoiceHistory = invoiceHistory;
-        const newInvoice : LocalInvoiceData = {
-          invoiceData: this.getMockInvoice(),
-          verified: false
-        };
-        this.invoiceHistory.push(newInvoice);
-        if (this.invoiceHistory.length > 7) {
-          this.invoiceHistory.pop();
-        }
-      }
-      this.saveNewHistory();
-    })
-    /* this.initStorage().then((invoiceHistory: LocalInvoiceData[]) => {
       this.invoiceHistory = invoiceHistory;
       return this.barcodeScanner.scan({
         resultDisplayDuration: 0,
         prompt: ''
       })
     }).then(qrData => {
-      this.newInvoiceData = JSON.parse(qrData.text);
-      const newInvoice : LocalInvoiceData = {
-        invoiceData: this.newInvoiceData,
+      const newInvoice: LocalInvoiceData = {
+        invoiceData: JSON.parse(qrData.text),
         verified: false
       };
       this.invoiceHistory.push(newInvoice);
+      if (this.invoiceHistory.length > 7) {
+        this.invoiceHistory.pop();
+      }
       this.saveNewHistory();
     }).catch(err => {
       console.log('Error', err);
-    });  */
+    });
   }
 
   getDate(invoice: InvoiceData) {
