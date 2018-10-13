@@ -1,3 +1,125 @@
 page-home {
+  .notice {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .invoice {
+    border: 1px dashed gray;
+    padding: 5px 20px;
+    height: auto;
+    width: 100%;
 
+
+    .title {
+      text-align: center;
+      margin: 20px 0;
+      font-weight: bold;
+      font-size: 24px;
+      span {
+        margin: 0 10px;
+      }
+    }
+    
+    .address {
+      text-align: center;
+    }
+
+    .taxID {
+      text-align: center;
+      margin: 20px 0 10px 0;
+      span {
+        font-weight: bold;
+      }
+    }
+    
+    .products {
+      margin: 15px 25px;
+      .singleProduct {
+        margin: 5px 0;
+        .itemData {
+          display: flex;
+          width: 100%;
+          .price {
+            font-weight: bold;
+            margin-left: auto;
+          }
+        }
+        .count {
+          margin: 5px 40px;
+        }
+      }
+    }
+
+    hr {
+      margin: 5px 25px;
+    }
+    .product-separator {
+      border-top: 1px dashed gray;
+    }
+    .summary-separator {
+      border: 1px dashed gray;
+    }
+    .sum-wrapper {
+      margin: 5px 25px;
+      display: flex;
+      .total-price {
+        span {
+          margin-right: 25px;
+        }
+        font-weight: bold;
+        margin-left: auto;
+      }
+    }
+
+    .customer-payment, .customer-cashback {
+      margin: 5px 25px;
+      display: flex;
+      .money-given, .money-back {
+        margin-left: auto;
+      }
+      span {
+        margin-right: 25px;
+      }
+    }
+
+    .flexColumns {
+      margin: 20px 25px;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      .flexColumnTax,
+      .flexColumnNetto,
+      .flexColumnTax2,
+      .flexColumnBrutto,
+      .date-info,
+      .time-info,
+      .invoice-info {
+        flex: 1 1 0;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+      }
+      .flexColumnTax {
+        flex-grow: 2;
+      }
+      .flexColumnNetto, .flexColumnTax2, .flexColumnBrutto {
+        flex-grow: 1;
+      }
+      .flexColumnTax2, .flexColumnBrutto {
+        text-align: center;
+      }
+      .flexColumnBrutto {
+        text-align: right;
+      }
+      .invoice-info{
+        text-align: right;
+      }
+    }
+
+    .footer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
 }

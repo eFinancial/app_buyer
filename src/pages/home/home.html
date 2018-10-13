@@ -1,14 +1,153 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div class="notice">
+    Rechnung
+  </div>
+  <div class="invoice">
+    <div class="invoice-header">
+      <div class="title">
+        <span>* * * *</span>
+        {{invoiceData.invoice.seller.name}}
+        <span>* * * *</span>
+      </div>
+      <div class="address">
+        <span>{{invoiceData.invoice.seller.address.street}}</span><br>
+        <span>{{invoiceData.invoice.seller.address.zip}}</span>
+        <span>{{invoiceData.invoice.seller.address.city}}</span>
+      </div>
+      <div class="taxID">
+        UST-ID_NR: <span>{{invoiceData.invoice.seller.ustIdNr}}</span>
+      </div>
+    </div>
+    <div class="products">
+      <div *ngFor="let product of invoiceData.invoice.products">
+        <div class="singleProduct">
+          <div class="itemData">
+            <div class="name">
+              {{product.name}}
+            </div>
+            <div class="price">
+              {{(product.count*product.itemPrice).toFixed(2)}}
+            </div>
+          </div>
+          <div *ngIf="product.count > 1" class="count">
+            {{product.count}} x {{product.itemPrice.toFixed(2)}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="product-separator">
+    <div class="sum-wrapper">
+      <div class="sum">
+        SUMME
+      </div>
+      <div class="total-price">
+        <span>EUR</span>{{invoiceData.invoice.totalCostBrutto.toFixed(2)}}
+      </div>
+    </div>
+    <hr class="summary-separator">
+    <div class="customer-payment">
+      <div class="given">
+        Geg.
+      </div>
+      <div class="money-given">
+        <span>EUR</span>{{invoiceData.invoice.customerPaid.toFixed(2)}}
+      </div>
+    </div>
+    <div class="customer-cashback">
+      <div class="back">
+        Rückgeld
+      </div>
+      <div class="money-back">
+        <span>EUR</span>{{(invoiceData.invoice.customerPaid - invoiceData.invoice.totalCostBrutto).toFixed(2)}}
+      </div>
+    </div>
+    <div class="flexColumns">
+      <div class="flexColumnTax">
+        <div>
+          Steuer &sect;
+        </div>
+        <div>
+          D-19,0	&sect;
+        </div>
+        <div>
+          Gesamtbetr.
+        </div>
+      </div>
+
+      <div class="flexColumnNetto">
+        <div>
+          Netto
+        </div>
+        <div>
+          {{invoiceData.invoice.totalCostNetto.toFixed(2)}}
+        </div>
+        <div>
+          {{invoiceData.invoice.totalCostNetto.toFixed(2)}}
+        </div>
+      </div>
+
+      <div class="flexColumnTax2">
+        <div >
+          Steuer
+        </div>
+        <div>
+          {{(invoiceData.invoice.totalCostBrutto * 0.19).toFixed(2)}}
+        </div>
+        <div>
+          {{(invoiceData.invoice.totalCostBrutto * 0.19).toFixed(2)}}
+        </div>
+      </div>
+
+      <div class="flexColumnBrutto">
+        <div >
+          Brutto
+        </div>
+        <div>
+          {{(invoiceData.invoice.totalCostBrutto).toFixed(2)}}
+        </div>
+        <div>
+          {{(invoiceData.invoice.totalCostBrutto).toFixed(2)}}
+        </div>
+      </div>
+    </div>
+    <div class="flexColumns">
+      <div class="date-info">
+        <div>
+          {{getDate()}}
+        </div>
+        <div>
+          Markt: {{invoiceData.invoice.seller.storeID}}
+        </div>
+      </div>
+
+      <div class="time-info">
+        <div>
+          {{getTime()}}
+        </div>
+        <div>
+          Kasse {{invoiceData.invoice.seller.checkoutLane}}
+        </div>
+      </div>
+
+      <div class="invoice-info">
+        <div>
+          Bon-Nr. {{invoiceData.invoice.billNo}}
+        </div>
+        <div>
+          Bed. AKWEI22
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div>
+        * * * *
+      </div>
+      <div>
+        VIELEN DANK FÜR IHREN EINKAUF
+      </div>
+      <div>
+        * * * *
+      </div>
+    </div>
+  </div>
 </ion-content>
