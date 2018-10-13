@@ -1,12 +1,29 @@
 page-home {
-
   $color-green-light: #5FAD56;
   $color-green-dark: #4D9078;
   $color-yellow: #F2C14F;
   $color-orange: #F78154;
+  font-family: 'Lato', sans-serif;
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 60px;
+    color: $color-yellow;
+    font-style: italic;
+    span {
+      font-weight: bold;
+      color: $color-orange;
+    }
+  }
   .content {
-    background-color: rgba($color-green-light, 1);
-    //background-image: linear-gradient($color-green-dark, $color-green-light);
+    //background-color: rgba($color-green-light, 1);
+    background-image: linear-gradient($color-green-light, $color-green-dark);
   }
   .notice {
     text-align: center;
@@ -133,7 +150,7 @@ page-home {
   }
 
   .fab-md {
-    color: $color-green-light;
+    color: $color-orange;
     background-color: $color-yellow;
   }
 }

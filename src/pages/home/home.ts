@@ -51,6 +51,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               private barcodeScanner: BarcodeScanner){
+    this.scanQrCode();
   }
 
   scanQrCode(){

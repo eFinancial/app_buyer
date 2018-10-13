@@ -148,6 +148,9 @@
       </div>
     </div>
   </div>
+  <div class="logo" *ngIf="!invoiceData">
+    e<span>Fi</span>
+  </div>
   <ion-fab left bottom>
     <button ion-fab (click)="rescanQR()"><ion-icon name="camera"></ion-icon></button>
   </ion-fab>
