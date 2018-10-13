@@ -93,7 +93,6 @@ export class HomePage {
   }
 
   rescanQR() {
-    console.log(JSON.stringify(this.invoiceData));
-    //this.scanQrCode();
+    this.scanQrCode();
   }
 }
