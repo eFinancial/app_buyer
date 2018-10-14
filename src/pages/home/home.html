@@ -164,10 +164,7 @@
   <div class="logo" *ngIf="!invoiceHistory?.length">
     e<span>Fi</span>
   </div>
-  <ion-fab left bottom>
-    <button ion-fab (click)="rescanQR()"><ion-icon name="camera"></ion-icon></button>
-  </ion-fab>
   <ion-fab right bottom>
-    <button ion-fab><ion-icon name="checkmark"></ion-icon></button>
+    <button ion-fab (click)="rescanQR()"><ion-icon name="camera"></ion-icon></button>
   </ion-fab>
 </ion-content>
